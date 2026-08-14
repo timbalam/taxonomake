@@ -19,7 +19,7 @@ rule download_gtdbtk_r207_data:
 
 rule extract_gtdbtk_r207_data:
     input:
-        config_gtdbtk_dir("gtdbtk_r207_v2_data.tar.gz")
+        config_gtdbtk_dir(config, "gtdbtk_r207_v2_data.tar.gz")
     output:
         directory(config_gtdbtk_data(config))
     log:
@@ -63,7 +63,7 @@ rule gtdbtk_r207_align:
 
 rule gtdbtk_r207_classify:
     input:
-        genomes_file = config_genomes_file(config),
+        genomes_list = config_genomes_list(config),
         al = config_gtdbtk_dir(config, "align"),
         data_path = config_gtdbtk_data(config)
     output:
@@ -76,7 +76,7 @@ rule gtdbtk_r207_classify:
     shell:
         "GTDBTK_DATA_PATH={input.data_path} " \
         f"pixi run --manifest-path {MANIFEST_PATH} -e gtdbtk-r207 " \
-        "gtdbtk classify --batchfile {input.genomes_file} " \
+        "gtdbtk classify --batchfile {input.genomes_list} " \
         "--align_dir {input.al} " \
         "--extension .fasta " \
         #"--scratch_data " \

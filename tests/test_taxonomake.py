@@ -42,7 +42,7 @@ def end_to_end_gtdbtk():
         except FileNotFoundError:
             pass
         try:
-            shutil.rmtree(f"{path_to_data}/tmp/genomes.gtdbtk")
+            shutil.rmtree(f"{path_to_data}/tmp/genomes.gtdbtk_r207")
         except FileNotFoundError:
             pass
         try:
@@ -54,8 +54,9 @@ def end_to_end_gtdbtk():
     yield
     cleanup()
 
+@pytest.mark.expensive
 def test_taxonomake_gtdbtk(end_to_end_gtdbtk):
-    cmd = f"taxonomake {path_to_data}/community_gtdbtk.toml"
+    cmd = f"taxonomake {path_to_data}/community_gtdbtk.yaml"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
