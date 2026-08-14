@@ -1,0 +1,24 @@
+[workspace]
+authors = ["Tim Lamberton <tim.lamberton@gmail.com>"]
+channels = ["conda-forge", "bioconda"]
+name = "taxonomake"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[dependencies]
+python = ">=3.9"
+snakemake = "9.*" # Current target, v10 not released yet
+"ruamel.yaml" = ">=0.15.99"
+polars = "*"
+pigz = ">=2.6"
+extern = "*"
+
+[pypi-dependencies]
+taxonomake = {path = ".", editable = true}
+
+[feature.dev.dependencies]
+# Dev/test dependencies only
+pytest = "*"
+
+[environments]
+dev = { features = ["dev"] }
