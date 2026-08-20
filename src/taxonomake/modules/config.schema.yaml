@@ -38,50 +38,56 @@ properties:
     description: Tab-separated file (headerless) with columns 'genome id', 'taxonomy string'
     type: string
   
-  gtdbtk:
-    description: GTDB toolkit for genome taxonomic classification
-    type: object
-    properties:
-      directory:
-        description: Directory for GTDB-TK intermediate outputs
-        type: string
-      
-      release:
-        description: GTDB version
-        enum: ["207"]
-      
-      data:
-        description: Directory for downloaded GTDB-TK data
-        type: string
-      
-    required: ["directory", "release", "data"]
+  classify:
+    description: Genome classification tool
+    oneOf:
+      type: object
+      properties:
+        tool:
+          description: Genome Tree Database toolkit for genome taxonomic classification
+          const: "gtdbtk"
+        
+        directory:
+          description: Directory for GTDB-TK intermediate outputs
+          type: string
+        
+        release:
+          description: GTDB version
+          enum: ["207"]
+        
+        data:
+          description: Directory for downloaded GTDB-TK data
+          type: string
     
-    additionalProperties: false
+      required: ["directory", "release", "data"]
+    
+      additionalProperties: false
   
   readsim:
-    description: Read simulation
-    type: object
-    properties: 
-      tool:
-        description: Tool for generating simulated reads
-        enum: ["art"]
-      
-      binary:
-        description: Path to tool binary
-        type: string
-      
-      read_length:
-        description: Read length of simulated reads
-        type: integer
-      
-    required: ["tool", "binary", "read_length"]
+    description: Tool for generating simulated reads
+    oneOf:
+      type: object
+      properties: 
+        tool:
+          description: art_Illumina simulation program for sequence read data from Illumina sequences
+          const: "art"
+        
+        binary:
+          description: Path to tool binary
+          type: string
+        
+        read_length:
+          description: Read length of simulated reads
+          type: integer
+        
+      required: ["tool", "binary", "read_length"]
 
-    additionalProperties: false
+      additionalProperties: false
   
 required: ["samples", "truth"]
 
 additionalProperties: false
 
 dependentRequired:
-  gtdbtk: ["genomes_list", "taxonomy"]
+  classify: ["genomes_list", "taxonomy"]
   readsim: ["genomes_list", "taxonomy"]

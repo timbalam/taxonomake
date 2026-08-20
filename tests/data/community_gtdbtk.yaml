@@ -1,7 +1,8 @@
 # truth.tsv has named columns sample/taxonomy/coverage
 truth: "truth.tsv"
 
-gtdbtk:
+classify:
+  tool: "gtdbtk"
   release: "207"
   directory: "tmp/genomes.gtdbtk_r207"
   data: "tmp/gtdbtk_r207_v2_data"

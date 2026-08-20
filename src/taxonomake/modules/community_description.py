@@ -15,6 +15,7 @@ def process_community_description(file, *, prefix, cores = 8, snakemake_args):
     yaml = YAML()
     with open(file) as f:
         conf = yaml.load(f)
+    import pdb; pdb.set_trace()
     validate(conf, SCHEMA)
     cmd = [
         shutil.which("snakemake"),

@@ -30,8 +30,8 @@ def config_taxonomy(config):
 def config_readsim_bin(config):
     return _make_absolute_if_path(config_dir(config), config["readsim"]["binary"])
 
-def config_gtdbtk_dir(config, *paths):
-    return _make_absolute(config_dir(config), config["gtdbtk"]["directory"], *paths)
+def config_classify_dir(config, *paths):
+    return _make_absolute(config_dir(config), config["classify"]["directory"], *paths)
 
-def config_gtdbtk_data(config):
-    return _make_absolute(config_dir(config), config["gtdbtk"]["data"])
+def config_classify_data(config):
+    return _make_absolute(config_dir(config), config["classify"]["data"])

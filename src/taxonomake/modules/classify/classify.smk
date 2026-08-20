@@ -1,6 +1,6 @@
 import os.path
 from taxonomake.modules.common import (
-    config_gtdbtk_dir, config_gtdbtk_data, config_genomes_list
+    config_classify_dir, config_classify_data, config_genomes_list
 )
 
 SIM_SCRIPTS_DIR = os.path.join(os.path.dirname(os.path.abspath(workflow.snakefile)), 'scripts')
@@ -9,33 +9,33 @@ MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(wor
 # release 207
 rule download_gtdbtk_r207_data:
     output:
-        config_gtdbtk_dir(config, 'gtdbtk_r207_v2_data.tar.gz')
+        config_classify_dir(config, 'gtdbtk_r207_v2_data.tar.gz')
     log:
         "logs/gtdbtk_r207_data-download.log"
     shell:
         "bash -c "\
-        "'cd " + config_gtdbtk_dir(config) + " && "\
+        "'cd " + config_classify_dir(config) + " && "\
         "wget https://data.gtdb.ecogenomic.org/releases/release207/207.0/auxillary_files/gtdbtk_r207_v2_data.tar.gz' &> {log}"
 
 rule extract_gtdbtk_r207_data:
     input:
-        config_gtdbtk_dir(config, "gtdbtk_r207_v2_data.tar.gz")
+        config_classify_dir(config, "gtdbtk_r207_v2_data.tar.gz")
     output:
-        directory(config_gtdbtk_data(config))
+        directory(config_classify_data(config))
     log:
         "log/gtdbtk_r207_v2_data-extract.log"
     shell:
         "bash -c " \
-        "'cd " + config_gtdbtk_dir(config) + " && " \
+        "'cd " + config_classify_dir(config) + " && " \
         "tar -xzf gtdbtk_r207_v2_data.tar.gz && " +
-        "mv release207_v2 " + config_gtdbtk_data(config) + "' &> {log}"
+        "mv release207_v2 " + config_classify_data(config) + "' &> {log}"
 
 rule gtdbtk_r207_identify:
     input:
         genomes_list=config_genomes_list(config),
-        data_path=config_gtdbtk_data(config)
+        data_path=config_classify_data(config)
     output:
-        output_dir=directory(config_gtdbtk_dir(config, "identify"))
+        output_dir=directory(config_classify_dir(config, "identify"))
     log:
         "logs/gtdbtk/r207/identify.log"
     shell:
@@ -48,10 +48,10 @@ rule gtdbtk_r207_identify:
 
 rule gtdbtk_r207_align:
     input:
-        id=config_gtdbtk_dir(config, "identify"),
-        data_path=config_gtdbtk_data(config)
+        id=config_classify_dir(config, "identify"),
+        data_path=config_classify_data(config)
     output:
-        output_dir=directory(config_gtdbtk_dir(config, "align"))
+        output_dir=directory(config_classify_dir(config, "align"))
     log:
         "logs/gtdbtk/r207/align.log"
     shell:
@@ -64,11 +64,11 @@ rule gtdbtk_r207_align:
 rule gtdbtk_r207_classify:
     input:
         genomes_list = config_genomes_list(config),
-        al = config_gtdbtk_dir(config, "align"),
-        data_path = config_gtdbtk_data(config)
+        al = config_classify_dir(config, "align"),
+        data_path = config_classify_data(config)
     output:
-        output_dir = directory(config_gtdbtk_dir(config, "classify")),
-        done=touch(config_gtdbtk_dir(config, "classify.done"))
+        output_dir = directory(config_classify_dir(config, "classify")),
+        done=touch(config_classify_dir(config, "classify.done"))
     log:
         "logs/gtdbtk/r207/classify.log"
     resources:
