@@ -8,6 +8,7 @@ version = "0.1.0"
 [dependencies]
 python = ">=3.9"
 snakemake = "9.*" # Current target, v10 not released yet
+snakemake-executor-plugin-cluster-generic = "*"
 "ruamel.yaml" = ">=0.15.99"
 polars = "*"
 pigz = ">=2.6"

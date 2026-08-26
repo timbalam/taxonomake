@@ -1,4 +1,5 @@
 import os.path
+import polars as pl
 
 def _make_absolute(dir, *paths):
     return os.path.normpath(os.path.join(dir, *paths))
@@ -23,6 +24,10 @@ def config_truth(config):
 
 def config_genomes_list(config):
     return _make_absolute(config_dir(config), config["genomes_list"])
+
+def get_genomes_files_and_ids(genomes_list):
+    for path, id in pl.read_csv(genomes_list, separator = '\t', has_header = False).iter_rows():
+        yield path, id
 
 def config_taxonomy(config):
     return _make_absolute(config_dir(config), config["taxonomy"])

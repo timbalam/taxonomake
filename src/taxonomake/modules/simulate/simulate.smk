@@ -5,7 +5,7 @@ from taxonomake.modules.common import (
     config_taxonomy, config_readsim_bin
 )
 
-SIM_SCRIPTS_DIR = os.path.join(os.path.dirname(os.path.abspath(workflow.snakefile)), 'scripts')
+SIM_SCRIPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'scripts')
 MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'pixi.toml')
 
 THREADS = 8

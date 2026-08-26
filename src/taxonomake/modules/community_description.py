@@ -15,7 +15,6 @@ def process_community_description(file, *, prefix, cores = 8, snakemake_args):
     yaml = YAML()
     with open(file) as f:
         conf = yaml.load(f)
-    import pdb; pdb.set_trace()
     validate(conf, SCHEMA)
     cmd = [
         shutil.which("snakemake"),
@@ -34,7 +33,7 @@ def process_community_description(file, *, prefix, cores = 8, snakemake_args):
         f"configfilepath={os.path.abspath(file)}"
     ]
     if snakemake_args != "":
-        cmd += snakemake_args
+        cmd += shlex.split(snakemake_args)
 
     logging.debug(f"Command: {shlex.join(cmd)}")
     logging.info("Executing: %s" % shlex.join(cmd))

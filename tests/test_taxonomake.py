@@ -55,8 +55,15 @@ def end_to_end_gtdbtk():
     cleanup()
 
 @pytest.mark.expensive
-def test_taxonomake_gtdbtk(end_to_end_gtdbtk):
-    cmd = f"taxonomake {path_to_data}/community_gtdbtk.yaml"
+def test_taxonomake_gtdbtk_r207(end_to_end_gtdbtk):
+    cmd = f"taxonomake {path_to_data}/community_gtdbtk_r207.yaml --snakemake-args '--profile aqua'"
+    extern.run(cmd)
+    assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
+    assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
+    
+@pytest.mark.expensive
+def test_taxonomake_gtdbtk_r207_download(end_to_end_gtdbtk):
+    cmd = f"taxonomake {path_to_data}/community_gtdbtk_r207_download.yaml --snakemake-args '--profile aqua'"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")

@@ -16,6 +16,7 @@ environments:
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-9.25.2-hdfd78af_0.conda
+      - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-executor-plugin-cluster-generic-1.0.9-pyhdfd78af_0.tar.bz2
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-common-1.23.0-pyhdfd78af_1.conda
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-executor-plugins-9.4.0-pyh84498cf_0.conda
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-logger-plugins-2.1.0-pyhdfd78af_0.conda
@@ -156,6 +157,7 @@ environments:
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-9.25.2-hdfd78af_0.conda
+      - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-executor-plugin-cluster-generic-1.0.9-pyhdfd78af_0.tar.bz2
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-common-1.23.0-pyhdfd78af_1.conda
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-executor-plugins-9.4.0-pyh84498cf_0.conda
       - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-logger-plugins-2.1.0-pyhdfd78af_0.conda
@@ -308,6 +310,19 @@ packages:
   purls: []
   size: 11301
   timestamp: 1787055652729
+- conda: https://conda.anaconda.org/bioconda/noarch/snakemake-executor-plugin-cluster-generic-1.0.9-pyhdfd78af_0.tar.bz2
+  sha256: 38a9a779f242843e94fed34b0fbc0f9be0001f6bd322681c83146186fdd48da6
+  md5: 9b1db7127119f513696d620eefe7bf67
+  depends:
+  - python >=3.11.0,<4.0.0
+  - snakemake-interface-common >=1.13.0,<2.0.0
+  - snakemake-interface-executor-plugins >=9.0.0,<10.0.0
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/snakemake-executor-plugin-cluster-generic?source=hash-mapping
+  size: 13919
+  timestamp: 1710194099964
 - conda: https://conda.anaconda.org/bioconda/noarch/snakemake-interface-common-1.23.0-pyhdfd78af_1.conda
   sha256: 1e8393a8ef060c62ef963fa9e0b3cc8f69b1dec4bdb51599c0dfcdeb9b8c7d12
   md5: a5ec344abd4b0cdda5a52e870e4d25a3

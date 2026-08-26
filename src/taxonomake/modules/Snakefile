@@ -1,17 +1,18 @@
-from taxonomake.modules.common import config_sample_reads1, config_sample_reads2
+from taxonomake.modules.common import config_sample_reads1, config_sample_reads2, config_classify_dir
 
-module simulate:
-    snakefile: "simulate/simulate.smk"
-    config: config
-
-if "gtdbtk" in config:
+if "classify" in config:
     module classify:
         snakefile: "classify/classify.smk"
         config: config
 
     use rule * from classify
 
-use rule * from simulate
+if "readsim" in config:
+    module simulate:
+        snakefile: "simulate/simulate.smk"
+        config: config
+    
+    use rule * from simulate
 
 rule all:
     input:
