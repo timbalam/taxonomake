@@ -1,0 +1,20 @@
+# truth.tsv has named columns sample/taxonomy/coverage
+truth: "truth.tsv"
+
+# taxonomy.tsv has unnamed columns accession/taxonomy
+taxonomy: "taxonomy.tsv"
+
+# genomes_accessions.tsv has unnamed columns path_to_fna/accession
+genomes_list:
+  ncbi: "genomes_accessions.tsv"
+
+samples:
+  names: ["small"]
+  reads1: ["tmp/small_1.fq.gz"]
+  reads2: ["tmp/small_2.fq.gz"]
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
+

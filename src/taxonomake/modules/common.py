@@ -1,8 +1,23 @@
 import os.path
 import polars as pl
+import importlib.resources
 
-def _make_absolute(dir, *paths):
-    return os.path.normpath(os.path.join(dir, *paths))
+import taxonomake.modules.scripts
+import taxonomake.modules
+from taxonomake.modules.scripts.simulate_art import (
+    _make_absolute
+)
+
+def get_script(*path):
+    with importlib.resources.path(taxonomake.modules.scripts, *path) as fspath:
+        ret = str(fspath)
+    return ret
+
+with importlib.resources.path(taxonomake.modules, "pixi.toml") as fspath:
+    MANIFEST_PATH = str(fspath)
+#SIM_SCRIPTS_DIR = importlib.resources.fios.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'scripts')
+#MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'pixi.toml')
+
 
 def _make_absolute_if_path(dir, path):
     return _make_absolute(dir, path) if os.path.dirname(path) != "" else path
@@ -23,11 +38,21 @@ def config_truth(config):
     return _make_absolute(config_dir(config), config["truth"])
 
 def config_genomes_list(config):
-    return _make_absolute(config_dir(config), config["genomes_list"])
+    return config_genomes_lists(config)["user"]
 
-def get_genomes_files_and_ids(genomes_list):
-    for path, id in pl.read_csv(genomes_list, separator = '\t', has_header = False).iter_rows():
-        yield path, id
+def config_ncbi_genomes_list(config):
+    return config_genomes_lists(config)["ncbi"]
+
+def config_has_ncbi_genomes_list(config):
+    return "genomes_list" in config and type(config["genomes_list"]) is not str and "ncbi" in config["genomes_list"]
+
+def config_genomes_lists(config):
+    dict = (
+        {"user": config["genomes_list"]}
+        if type(config["genomes_list"]) is str
+        else config["genomes_list"]
+    )
+    return {k: _make_absolute(config_dir(config), v) for k, v in dict.items()}
 
 def config_taxonomy(config):
     return _make_absolute(config_dir(config), config["taxonomy"])
@@ -40,3 +65,16 @@ def config_classify_dir(config, *paths):
 
 def config_classify_data(config):
     return _make_absolute(config_dir(config), config["classify"]["data"])
+
+def config_has_classify_data(config):
+    return "classify" in config
+
+def xread_genomes_list(path):
+    dir = os.path.dirname(path)
+    return (
+        pl.read_csv(path, separator = '\t', has_header = False,
+                    new_columns = ["path", "otu"])
+        .with_columns(
+            pl.col("path").map_elements(lambda path: _make_absolute(dir, path))
+        )
+    )

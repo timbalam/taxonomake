@@ -1,4 +1,7 @@
-from taxonomake.modules.common import config_sample_reads1, config_sample_reads2, config_classify_dir
+from taxonomake.modules.common import (
+    config_sample_reads1,
+    config_sample_reads2
+)
 
 if "classify" in config:
     module classify:

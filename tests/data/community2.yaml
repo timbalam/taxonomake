@@ -1,17 +1,12 @@
 # truth.tsv has named columns sample/taxonomy/coverage
 truth: "truth.tsv"
 
-classify:
-  tool: "gtdbtk"
-  release: "207"
-  directory: "tmp/genomes.gtdbtk_r207"
-  data: "tmp/gtdbtk_r207_v2_data"
-
 # taxonomy.tsv has unnamed columns otu/taxonomy
-taxonomy: "tmp/taxonomy.tsv"
+taxonomy: "taxonomy.tsv"
 
 # genomes.tsv has unnamed columns path_to_fna/otu
-genomes_list: "genomes_download.tsv"
+genomes_list:
+  ncbi: "genomes.tsv"
 
 samples:
   names: ["small"]
@@ -22,4 +17,3 @@ readsim:
   tool: "art"
   binary: "art_illumina"
   read_length: 150
-

@@ -31,8 +31,24 @@ properties:
     type: string
   
   genomes_list:
-    description: Tab-separated file (headerless) with columns 'genome fasta', 'genome id'
-    type: string
+    oneOf:
+      - description: Tab-separated file (headerless) with columns 'genome fasta', 'genome id'
+        type: string
+
+      - description: Genome list files
+        type: object
+        properties:
+          ncbi:
+            description: Tab-separated file (headerless) with columns 'genome fasta', 'accession id'
+            type: string
+
+          user:
+            description: Tab-separated file (headerless) with columns 'genome fasta', 'genome id'
+            type: string
+
+        additionalProperties: False
+
+        minProperties: 1 
   
   taxonomy:
     description: Tab-separated file (headerless) with columns 'genome id', 'taxonomy string'

@@ -35,6 +35,7 @@ from taxonomake.modules.community_description import process_community_descripti
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument('--download', help='download files specified in configuration file', action='store_true')
     parser.add_argument('--debug', help='output debug information', action="store_true")
     #parser.add_argument('--version', help='output version information and quit',  action='version', version=repeatm.__version__)
     parser.add_argument('--quiet', help='only output errors', action="store_true")
@@ -74,7 +75,8 @@ def main():
             td.cleanup()
     try:
         process_community_description(args.configfile, prefix = prefix,
-                                      snakemake_args = args.snakemake_args)
+                                      snakemake_args = args.snakemake_args,
+                                      download = args.download)
     finally:
         cleanup()
 
