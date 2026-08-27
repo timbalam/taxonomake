@@ -22,7 +22,8 @@ rule simulate_paired_reads_rename:
 #    script:
 #        get_script("rename_all.py")
     shell:
-        "parallel mv {1} {2} ::: {input.r1} {input.r2} :::+ {output.r1} {output.r2}"
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
+        "parallel mv {{1}} {{2}} ::: {input.r1} {input.r2} :::+ {output.r1} {output.r2}"
 
 rule simulate_art_paired_reads_sample:
     output:
