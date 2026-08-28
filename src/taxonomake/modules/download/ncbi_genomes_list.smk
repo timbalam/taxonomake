@@ -14,12 +14,19 @@ rule download_ncbi_genome_accessions:
         done=touch("nbci_genomes_accessions-download.done")
     log:
         "logs/ncbi_genomes_accessions-download.log"
+    localrule: True
     shell:
         "if test -s {input.accessions}; then " \
         f"pixi run --manifest-path {MANIFEST_PATH} -e datasets " \
         "datasets download genome accession --inputfile {input.accessions} && " \
-        "{{ rm -r ncbi_dataset; unzip ncbi_dataset.zip }} && " \
-        "{{ parallel --col-sep '\\t' dirname {{2}} :::: {input.ncbi_names} | parallel mkdir -p  }} && " \
+        "{{ rm -r ncbi_dataset README.md md5sum.txt; unzip ncbi_dataset.zip; }} && " \
+        "{{ " \
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
+        "parallel --col-sep '\\t' dirname {{2}} :::: {input.ncbi_names} | "
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
+        "parallel mkdir -p;  " \
+        "}} && " \
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
         "parallel --col-sep '\\t' mv {{1}}/*.fna {{2}} :::: {input.ncbi_names}; " \
         "fi &> {log}"
 
@@ -29,7 +36,6 @@ rule genome_accessions_to_download:
     output:
         accessions="ncbi/genome_accessions.txt",
         ncbi_names="ncbi/genome_ncbi_names.tsv"
-    params:
-        genomes_dir=lambda wildcards, input: os.path.dirname(input.genomes_list)
+    localrule: True
     script:
         get_script("genomes_accessions_to_download.py")

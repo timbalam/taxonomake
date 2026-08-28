@@ -19,6 +19,7 @@ rule simulate_paired_reads_rename:
     output:
         r1 = config_sample_reads1(config),
         r2 = config_sample_reads2(config)
+    localrule: True
 #    script:
 #        get_script("rename_all.py")
     shell:

@@ -26,4 +26,5 @@ if config_has_classify_data(config):
 rule all:
     input:
         download
+    localrule: True
 

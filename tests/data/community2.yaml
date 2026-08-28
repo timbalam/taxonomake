@@ -2,11 +2,11 @@
 truth: "truth.tsv"
 
 # taxonomy.tsv has unnamed columns otu/taxonomy
-taxonomy: "taxonomy.tsv"
+taxonomy: "taxonomy_tmp.tsv"
 
 # genomes.tsv has unnamed columns path_to_fna/otu
 genomes_list:
-  ncbi: "genomes.tsv"
+  ncbi: "genomes_tmp.tsv"
 
 samples:
   names: ["small"]

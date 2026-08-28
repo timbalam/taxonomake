@@ -21,3 +21,4 @@ rule all:
     input:
         config_sample_reads1(config),
         config_sample_reads2(config)
+    localrule: True

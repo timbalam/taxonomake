@@ -31,12 +31,11 @@ def process_community_description(file, *, prefix, cores = 8, snakemake_args, do
         "--cores",
         f"{cores}",
         "--config",
-        f"configfilepath={os.path.abspath(file)}",
-        "--",
-        "all"
+        f"configfilepath={os.path.abspath(file)}"
     ]
     if snakemake_args != "":
         cmd += shlex.split(snakemake_args)
+    cmd += ["--", "all"]
 
     logging.debug(f"Command: {shlex.join(cmd)}")
     logging.info("Executing: %s" % shlex.join(cmd))

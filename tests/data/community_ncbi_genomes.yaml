@@ -6,7 +6,7 @@ taxonomy: "taxonomy.tsv"
 
 # genomes_accessions.tsv has unnamed columns path_to_fna/accession
 genomes_list:
-  ncbi: "genomes_accessions.tsv"
+  ncbi: "genomes_tmp.tsv"
 
 samples:
   names: ["small"]

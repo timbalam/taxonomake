@@ -2,12 +2,11 @@ import os.path
 from taxonomake.modules.common import (
     config_classify_dir,
     config_classify_data,
-    config_genomes_list,
-    config_taxonomy
+    config_genomes_lists,
+    config_taxonomy,
+    get_script,
+    MANIFEST_PATH
 )
-
-SIM_SCRIPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'scripts')
-MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'pixi.toml')
 
 rule extract_taxonomy_gtdbtk_r207:
     output:
@@ -16,9 +15,10 @@ rule extract_taxonomy_gtdbtk_r207:
         cla = config_classify_dir(config, 'classify')
     log:
         "logs/gtdbtk/r207/taxonomy.log"
+    localrule: True
     script:
-        f"{SIM_SCRIPTS_DIR}/extract_taxonomy.py"
-        
+        get_script("extract_taxonomy.py")
+
 
 rule gtdbtk_r207_identify:
     input:
@@ -38,11 +38,12 @@ rule gtdbtk_r207_identify:
 
 rule gtdbtk_r207_batch_file:
     input:
-        genomes_lists=config_genomes_lists(config)
+        genomes_lists = list(config_genomes_lists(config).values())
     output:
-        "batchfile.tsv"
+        batchfile = "batchfile.tsv"
+    localrule: True
     script:
-        f"{SIM_SCRIPTS_DIR}/combine_batchfiles.py"
+        get_script("combine_batchfiles.py")
 
 rule gtdbtk_r207_align:
     input:

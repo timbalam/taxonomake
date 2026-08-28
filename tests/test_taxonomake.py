@@ -58,7 +58,7 @@ def end_to_end_gtdbtk():
 @pytest.mark.skipif(not os.path.exists(f"{path_to_data}/tmp/gtdbtk_r207_v2_data"), reason="gtdbtk data not downloaded")
 @pytest.mark.expensive
 def test_taxonomake_gtdbtk_r207(end_to_end_gtdbtk):
-    cmd = f"taxonomake {path_to_data}/community_gtdbtk_r207.yaml --snakemake-args '--profile aqua'"
+    cmd = f"taxonomake {path_to_data}/community_gtdbtk_r207.yaml"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
