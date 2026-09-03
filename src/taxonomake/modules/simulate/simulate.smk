@@ -1,7 +1,7 @@
 import os.path
 from taxonomake.modules.common import (
     config_sample_reads1, config_sample_reads2, config_sample_names,
-    config_truth, config_genomes_lists,
+    config_truth, config_genomes_lists, config_coverages,
     config_taxonomy, config_readsim_bin,
     get_script, MANIFEST_PATH
 )
@@ -20,8 +20,6 @@ rule simulate_paired_reads_rename:
         r1 = config_sample_reads1(config),
         r2 = config_sample_reads2(config)
     localrule: True
-#    script:
-#        get_script("rename_all.py")
     shell:
         f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
         "parallel mv {{1}} {{2}} ::: {input.r1} {input.r2} :::+ {output.r1} {output.r2}"
@@ -31,7 +29,7 @@ rule simulate_art_paired_reads_sample:
         r1 = "readsim_art/{sample}_1.fq.gz",
         r2 = "readsim_art/{sample}_2.fq.gz"
     input:
-        truth=config_truth(config),
+        coverages=lambda wildcards: config_coverages(config)[wildcards.sample],
         genomes_lists=list(config_genomes_lists(config).values()),
         taxonomy=config_taxonomy(config)
     params:
@@ -44,10 +42,9 @@ rule simulate_art_paired_reads_sample:
         f"python3 {SIMULATE_ART_SCRIPT} " \
         "--art {params.art_bin} " \
         "--threads {threads} " \
-        "--coverage-file {input.truth} " \
+        "--coverages {input.coverages} " \
         "--genome-lists {input.genomes_lists} " \
         "--taxonomy {input.taxonomy} " \
-        "--sample {wildcards.sample} " \
         "-1 {output.r1} " \
         "-2 {output.r2} " \
         "2> {log}"

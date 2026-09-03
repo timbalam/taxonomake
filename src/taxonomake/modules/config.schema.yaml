@@ -30,6 +30,14 @@ properties:
     description: Truth community profile
     type: string
   
+  coverages:
+    description: Genome-wise coverages per sample
+    type: object
+    
+    additionalProperties:
+      description: Tab-separated file (headerless) with columns 'genome id', 'coverage'
+      type: string
+    
   genomes_list:
     oneOf:
       - description: Tab-separated file (headerless) with columns 'genome fasta', 'genome id'

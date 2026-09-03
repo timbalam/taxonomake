@@ -1,5 +1,9 @@
 # truth.tsv has named columns sample/taxonomy/coverage
-truth: "truth.tsv"
+truth: "tmp/truth.tsv"
+
+# coverages has unnamed columns otu/coverage
+coverages:
+  small: "coverages.tsv"
 
 # taxonomy.tsv has unnamed columns accession/taxonomy
 taxonomy: "taxonomy.tsv"

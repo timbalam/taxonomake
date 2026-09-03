@@ -1,6 +1,7 @@
 from taxonomake.modules.common import (
     config_sample_reads1,
-    config_sample_reads2
+    config_sample_reads2,
+    config_truth
 )
 
 if "classify" in config:
@@ -9,6 +10,13 @@ if "classify" in config:
         config: config
 
     use rule * from classify
+
+if "coverages" in config:
+    module coverages:
+        snakefile: "coverages/coverages.smk"
+        config: config
+    
+    use rule * from coverages
 
 if "readsim" in config:
     module simulate:
@@ -20,5 +28,6 @@ if "readsim" in config:
 rule all:
     input:
         config_sample_reads1(config),
-        config_sample_reads2(config)
+        config_sample_reads2(config),
+        config_truth(config)
     localrule: True

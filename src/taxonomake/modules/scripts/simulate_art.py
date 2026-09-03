@@ -9,12 +9,11 @@ import tempfile
 import polars as pl
 import shutil
 
-def simulate_art(*, read_length, coverages, genomes, taxonomy, output1,
+def simulate_art(*, read_length, coverages, genomes, output1,
                  output2, art_bin, threads):
 
     df = (
         coverages
-        .join(taxonomy, on = 'taxonomy', how = 'inner')
         .join(genomes, on = 'otu', how = 'inner')
         .with_columns(
             cmd = pl.lit(shutil.which(art_bin))
@@ -42,12 +41,9 @@ def simulate_art(*, read_length, coverages, genomes, taxonomy, output1,
         extern.run("cat simulated_reads/*1.fq |sed 's=/= =' |pigz -p {} >{}".format(threads, output1))
         extern.run("cat simulated_reads/*2.fq |sed 's=/= =' |pigz -p {} >{}".format(threads, output2))
 
-def read_coverage_file(path, sample):
-    return (
-        pl
-        .read_csv(path, separator = '\t', columns = ['sample', 'taxonomy', 'coverage'])
-        .filter(pl.col("sample") == sample)
-    )
+def read_coverage_file(path):
+    return pl.read_csv(path, separator = '\t', has_header = False,
+                       new_columns = ['otu', 'coverage'])
 
 def read_taxonomy_file(path):
     return pl.read_csv(path, separator = '\t', has_header = False,
@@ -72,7 +68,7 @@ if __name__ == '__main__':
     #parser.add_argument('--version', help='output version information and quit',  action='version', version=repeatm.__version__)
     parser.add_argument('--quiet', help='only output errors', action="store_true")
 
-    parser.add_argument('--coverage-file', required=True, help='Path to file with taxonomic + coverage information (tsv with sample/taxonomy/coverage)')
+    parser.add_argument('--coverages', required=True, help='Path to file with taxonomic + coverage information (tsv with sample/taxonomy/coverage)')
     parser.add_argument('--genome-lists', required=True, help='Path to file with OTU names and genome file paths (tsv with otu/path)', nargs="+")
     parser.add_argument('--taxonomy', required=True, help='Path to file with taxonomies for otus in genomes-list (tsv with otu/taxonomy)')
     parser.add_argument('-1', '--read1', required=True, help='Path to output fq.gz file')
@@ -80,7 +76,6 @@ if __name__ == '__main__':
     parser.add_argument('--threads', type=int, default=1, help='Number of threads to use')
     parser.add_argument('--art-bin', required=True, help='Path to ART binary (e.g. art_illumina)')
     parser.add_argument('--read-length', type=int, default = 150, help='Simulated read length')
-    parser.add_argument('--sample', help='Name of sample (in coverage file)')
     
     args = parser.parse_args()
 
@@ -97,9 +92,8 @@ if __name__ == '__main__':
         read_length = args.read_length,
         output1 = os.path.abspath(args.read1),
         output2 = os.path.abspath(args.read2),
-        coverages = read_coverage_file(args.coverage_file, args.sample),
+        coverages = read_coverage_file(args.coverages),
         genomes = pl.concat([read_genomes_list(f) for f in args.genome_lists]),
-        taxonomy = read_taxonomy_file(args.taxonomy),
         threads = args.threads,
         art_bin = args.art_bin
     )

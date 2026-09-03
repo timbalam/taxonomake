@@ -37,6 +37,9 @@ def config_sample_names(config):
 def config_truth(config):
     return _make_absolute(config_dir(config), config["truth"])
 
+def config_coverages(config):
+    return {k:_make_absolute(config_dir(config), v) for k, v in config["coverages"].items()}
+
 def config_genomes_list(config):
     return config_genomes_lists(config)["user"]
 

@@ -1,4 +1,3 @@
-import os.path
 from taxonomake.modules.common import (
     config_classify_dir,
     config_classify_data,
