@@ -3,20 +3,23 @@ import extern
 import shutil
 import pytest
 import polars as pl
+import polars.testing as plt
 
 path_to_data = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data')
 
 @pytest.fixture
 def end_to_end():
+    files_to_remove = [
+        f"{path_to_data}/tmp/small_1.fq.gz",
+        f"{path_to_data}/tmp/small_2.fq.gz",
+        f"{path_to_data}/tmp/truth.tsv"
+    ]
     def cleanup():
-        try:
-            os.remove(f"{path_to_data}/tmp/small_1.fq.gz")
-        except FileNotFoundError:
-            pass
-        try:
-            os.remove(f"{path_to_data}/tmp/small_2.fq.gz")
-        except FileNotFoundError:
-            pass
+        for file in files_to_remove:
+            try:
+                os.remove(file)
+            except FileNotFoundError:
+                pass
     
     cleanup()
     yield
@@ -25,8 +28,8 @@ def end_to_end():
 def assert_equal_tsv(old, new, *, separator = '\t', **args):
     olddf = pl.read_csv(old, separator = separator, **args)
     newdf = pl.read_csv(new, separator = separator, **args)
-    assert set(olddf.columns) == set(newdf.columns)
-    assert olddf.select(pl.col(newdf.columns)).sort() == newdf.sort()
+    plt.assert_frame_equal(olddf, newdf, check_column_order = False,
+                           check_row_order = False)
 
 
 def test_taxonomake(end_to_end):
@@ -45,19 +48,27 @@ def test_taxonomake2(end_to_end):
 
 @pytest.fixture
 def end_to_end_gtdbtk():
+    files_to_remove = [
+        f"{path_to_data}/tmp/small_1.fq.gz",
+        f"{path_to_data}/tmp/small_2.fq.gz",
+        f"{path_to_data}/tmp/truth.tsv",
+        f"{path_to_data}/tmp/taxonomy.tsv"
+    ]
+    folders_to_remove = [
+        f"{path_to_data}/tmp/genomes.gtdbtk_r207"
+    ]
     def cleanup():
-        try:
-            os.remove(f"{path_to_data}/tmp/small_1.fq.gz")
-        except FileNotFoundError:
-            pass
-        try:
-            os.remove(f"{path_to_data}/tmp/small_2.fq.gz")
-        except FileNotFoundError:
-            pass
-        try:
-            shutil.rmtree(f"{path_to_data}/tmp/genomes.gtdbtk_r207")
-        except FileNotFoundError:
-            pass
+        for f in files_to_remove:
+            try:
+                os.remove(f)
+            except FileNotFoundError:
+                pass
+
+        for d in folders_to_remove:
+            try:
+                shutil.rmtree(d)
+            except FileNotFoundError:
+                pass
     
     cleanup()
     yield

@@ -3,14 +3,14 @@ truth: "tmp/truth.tsv"
 
 # coverages has unnamed columns otu/coverage
 coverages:
-  small: "coverages.tsv"
+  small: "coverages_ncbi.tsv"
 
 # taxonomy.tsv has unnamed columns otu/taxonomy
-taxonomy: "taxonomy_tmp.tsv"
+taxonomy: "taxonomy_ncbi.tsv"
 
 # genomes.tsv has unnamed columns path_to_fna/otu
 genomes_list:
-  ncbi: "genomes_tmp.tsv"
+  ncbi: "genomes_ncbi.tsv"
 
 samples:
   names: ["small"]
