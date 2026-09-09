@@ -72,9 +72,9 @@ using the simulation tool 'art'
 genomes_list: "genomes.tsv"
 
 readsim:
-  art:
-    binary: "art_illumina"
-    read_length: 150
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
 ```
 
 ## Classify genomes
@@ -89,10 +89,10 @@ release 207.
 
 ```yaml
 classify:
-  gtdbtk:
-    release: "207"
-    directory: "tmp/genomes.gtdbtk_r207"
-    data: "tmp/gtdbtk_r207_v2_data"
+  tool: "gtdbtk"
+  release: "207"
+  directory: "tmp/genomes.gtdbtk_r207"
+  data: "tmp/gtdbtk_r207_v2_data"
 ```
 
 ## Configfile options
@@ -131,9 +131,8 @@ classify:
   and 2. OTU identifiers.
 
 `readsim`
-- Object with one of the following fields:
-  describing configuration of tool to use for read simulation.
-  Currently 'art' is the only supported tool.
+- Object describing configuration of tool to use for read simulation.
+  Supported tools: 'art'.
 
   An 'art' configuration object contains the following fields:
   
@@ -143,8 +142,20 @@ classify:
   Describes configuration of read-simulation tool
   for simulating samples. 
 
-`gtdbtk`
-- Object 
-  release: "207"
-  directory: "tmp/genomes.gtdbtk_r207"
-  data: "tmp/gtdbtk_r207_v2_data"
+`classify`
+- Object describing configuration of tool to use for genome classification.
+  Supported tools: 'gtdbtk'.
+
+  A 'gtdbtk' configuration object contains the following fields:
+
+  `tool`
+  - Name of tool: 'gtdbtk'
+
+  `release`
+  - GTDB release (currently supported: r207)
+  
+  `directory`
+  - directory for intermediate GTDB-TK outputs
+
+  `data`
+  - path to download GTDB-TK data
