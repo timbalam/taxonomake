@@ -7,5 +7,5 @@ taxonomake --download tests/data/community_gtdbtk_r207.yaml
 Run expensive tests with profile
 
 ```sh
-SNAKEMAKE_PROFILE=<profile> pytest --run-expensive
+SNAKEMAKE_PROFILE=<profile> TEMPDIR="<tempdir>" pytest --run-expensive
 ```

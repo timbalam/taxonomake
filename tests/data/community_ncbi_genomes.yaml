@@ -1,21 +1,18 @@
-# truth.tsv has named columns sample/taxonomy/coverage
-truth: "tmp/truth.tsv"
-
-# coverages has unnamed columns otu/coverage
-coverages:
-  small: "coverages.tsv"
-
 # taxonomy.tsv has unnamed columns accession/taxonomy
 taxonomy: "taxonomy.tsv"
 
 # genomes_accessions.tsv has unnamed columns path_to_fna/accession
 genomes_list:
-  ncbi: "genomes_ncbi.tsv"
+  ncbi: "genomes_ncbi_tmp.tsv"
 
 samples:
   names: ["small"]
   reads1: ["tmp/small_1.fq.gz"]
   reads2: ["tmp/small_2.fq.gz"]
+  # truth.tsv has named columns sample/taxonomy/coverage
+  truths: ["tmp/truth.tsv"]
+  # coverages has unnamed columns otu/coverage
+  coverages: ["coverages.tsv"]
 
 readsim:
   tool: "art"

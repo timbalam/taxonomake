@@ -5,23 +5,24 @@ from taxonomake.modules.scripts.simulate_art import (
     read_taxonomy_file
 )
 
-def write_truth(*, coverages, genomes, taxonomy, output_truth):
-    (
-        coverages
+def write_truths(*, coverages, sample_names, genomes, taxonomy, output_truths):
+    truths = (
+        pl.concat([
+            df.with_columns(sample = pl.lit(nm), output_truth = pl.lit(out))
+            for df, nm, out in zip(coverages, sample_names, output_truths)
+        ])
         .join(genomes, on = 'otu', how = 'inner')
         .join(taxonomy, on = 'otu', how = 'inner')
-        .group_by(pl.col('sample'), pl.col('taxonomy'))
+        .group_by(pl.col('sample', 'taxonomy', 'output_truth'))
         .agg(pl.col('coverage').sum())
-        .write_csv(output_truth, separator = '\t')
     )
+    for (file,), data in truths.group_by(pl.col('output_truth')):
+        data.drop(pl.col('output_truth')).write_csv(file, separator = '\t')
 
-write_truth(
-    coverages = pl.concat([
-        read_coverage_file(f)
-        .with_columns(sample = pl.lit(nm))
-        for nm, f in zip(snakemake.params["sample_names"], snakemake.input["coverages_files"])
-    ]),
+write_truths(
+    coverages = [read_coverage_file(f) for f in snakemake.input["coverages_files"]],
+    sample_names = snakemake.params["sample_names"],
     genomes = pl.concat([read_genomes_list(f) for f in snakemake.input["genomes_lists"]]),
     taxonomy = read_taxonomy_file(snakemake.input["taxonomy"]),
-    output_truth = snakemake.output["truth"]
+    output_truths = snakemake.output["truths"]
 )

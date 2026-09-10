@@ -12,31 +12,41 @@ properties:
         type: array
         items:
           type: string
+        minItems: 1
+      
       reads1:
-        description: Forward read files
+        description: Forward read (fastq.gz) files
         type: array
         items:
+          description: Gzipped Fastq file
           type: string
+        minItems: 1
+      
       reads2:
-        description: Reverse read files
+        description: Reverse read (fastq.gz) files
         type: array
         items:
           type: string
-    required: ["names", "reads1", "reads2"]
+        minItems: 1
+
+      truths:
+        description: Truth community profile
+        type: array
+        items:
+          description: Tab-separated file with columns 'sample', 'coverage', 'taxonomy'
+          type: string
+        minItems: 1
+      
+      coverages:
+        description: Genome-wise coverages per sample
+        type: array
+        items:
+          description: Tab-separated file (headerless) with columns 'genome id', 'coverage'
+          type: string
+        minItems: 1
+    required: ["names", "reads1", "reads2", "truths"]
     
     additionalProperties: false
-  
-  truth:
-    description: Truth community profile
-    type: string
-  
-  coverages:
-    description: Genome-wise coverages per sample
-    type: object
-    
-    additionalProperties:
-      description: Tab-separated file (headerless) with columns 'genome id', 'coverage'
-      type: string
     
   genomes_list:
     oneOf:
@@ -106,7 +116,7 @@ properties:
 
     additionalProperties: false
   
-required: ["samples", "truth"]
+required: ["samples"]
 
 additionalProperties: false
 

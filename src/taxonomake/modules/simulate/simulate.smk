@@ -1,7 +1,7 @@
 import os.path
 from taxonomake.modules.common import (
     config_sample_reads1, config_sample_reads2, config_sample_names,
-    config_truth, config_genomes_lists, config_coverages,
+    config_genomes_lists, config_coverages,
     config_taxonomy, config_readsim_bin,
     get_script, MANIFEST_PATH
 )
@@ -29,7 +29,7 @@ rule simulate_art_paired_reads_sample:
         r1 = "readsim_art/{sample}_1.fq.gz",
         r2 = "readsim_art/{sample}_2.fq.gz"
     input:
-        coverages=lambda wildcards: config_coverages(config)[wildcards.sample],
+        coverages=lambda wildcards: config_coverages(config)[config_sample_names(config).index(wildcards.sample)],
         genomes_lists=list(config_genomes_lists(config).values()),
         taxonomy=config_taxonomy(config)
     params:

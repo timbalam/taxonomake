@@ -1,10 +1,3 @@
-# truth.tsv has named columns sample/taxonomy/coverage
-truth: "tmp/truth.tsv"
-
-# coverages has unnamed columns otu/coverage
-coverages:
-  small: "coverages_ncbi.tsv"
-
 # taxonomy.tsv has unnamed columns otu/taxonomy
 taxonomy: "taxonomy_ncbi.tsv"
 
@@ -16,6 +9,10 @@ samples:
   names: ["small"]
   reads1: ["tmp/small_1.fq.gz"]
   reads2: ["tmp/small_2.fq.gz"]
+  # truth.tsv has named columns sample/taxonomy/coverage
+  truths: ["tmp/truth.tsv"]
+  # coverages has unnamed columns otu/coverage
+  coverages: ["coverages_ncbi.tsv"]
 
 readsim:
   tool: "art"

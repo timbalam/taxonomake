@@ -34,11 +34,11 @@ def config_sample_reads2(config):
 def config_sample_names(config):
     return config["samples"]["names"]
 
-def config_truth(config):
-    return _make_absolute(config_dir(config), config["truth"])
+def config_truths(config):
+    return [_make_absolute(config_dir(config), s) for s in config["samples"]["truths"]]
 
 def config_coverages(config):
-    return {k:_make_absolute(config_dir(config), v) for k, v in config["coverages"].items()}
+    return [_make_absolute(config_dir(config), s) for s in config["samples"]["coverages"]]
 
 def config_genomes_list(config):
     return config_genomes_lists(config)["user"]
