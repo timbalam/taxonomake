@@ -12,8 +12,7 @@ taxonomy_files = [
 ]
 d = pl.concat([
     pl
-    .read_csv(f, separator = '\t')
-    .select(pl.col('user_genome'), pl.col('classification'))
+    .read_csv(f, separator = '\t', columns = ['user_genome', 'classification'])
     for f in taxonomy_files
 ])
 if "Unclassified" in d["classification"]:
