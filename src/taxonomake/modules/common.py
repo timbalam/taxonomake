@@ -18,27 +18,36 @@ with importlib.resources.path(taxonomake.modules, "pixi.toml") as fspath:
 #SIM_SCRIPTS_DIR = importlib.resources.fios.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'scripts')
 #MANIFEST_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(workflow.snakefile))), 'pixi.toml')
 
-
 def _make_absolute_if_path(dir, path):
     return _make_absolute(dir, path) if os.path.dirname(path) != "" else path
 
 def config_dir(config):
     return os.path.dirname(config["configfilepath"])
 
+def _config_samples(config):
+    return (
+        read_samples(_make_absolute(config_dir(config), config["samples"]))
+        if type(config["samples"]) is str
+        else config["samples"]
+    )
+
+def config_samples_has_coverages(config):
+    return "coverages" in _config_samples(config)
+
 def config_sample_reads1(config):
-    return [_make_absolute(config_dir(config), s) for s in config["samples"]["reads1"]]
+    return [_make_absolute(config_dir(config), s) for s in _config_samples(config)["reads1"]]
 
 def config_sample_reads2(config):
-    return [_make_absolute(config_dir(config), s) for s in config["samples"]["reads2"]]
+    return [_make_absolute(config_dir(config), s) for s in _config_samples(config)["reads2"]]
 
 def config_sample_names(config):
-    return config["samples"]["names"]
+    return _config_samples(config)["names"]
 
 def config_truths(config):
-    return [_make_absolute(config_dir(config), s) for s in config["samples"]["truths"]]
+    return [_make_absolute(config_dir(config), s) for s in _config_samples(config)["truths"]]
 
 def config_coverages(config):
-    return [_make_absolute(config_dir(config), s) for s in config["samples"]["coverages"]]
+    return [_make_absolute(config_dir(config), s) for s in _config_samples(config)["coverages"]]
 
 def config_genomes_list(config):
     return config_genomes_lists(config)["user"]
@@ -71,6 +80,17 @@ def config_classify_data(config):
 
 def config_has_classify_data(config):
     return "classify" in config
+
+def read_samples(path):
+    dir = os.path.dirname(path)
+    return (
+        pl.read_csv(path, separator = '\t')
+        .with_columns(
+            pl.col("reads1", "reads2", "truths", "coverages")
+            .map_elements(lambda path: _make_absolute(dir, path))
+        )
+        .to_dict(as_series = False)
+    )
 
 def xread_genomes_list(path):
     dir = os.path.dirname(path)

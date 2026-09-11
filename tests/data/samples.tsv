@@ -1,0 +1,2 @@
+names	reads1	reads2	truths	coverages
+"small"	"tmp/small_1.fq.gz"	"tmp/small_2.fq.gz"	"tmp/truth.tsv"	"coverages.tsv"

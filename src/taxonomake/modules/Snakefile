@@ -1,7 +1,8 @@
 from taxonomake.modules.common import (
     config_sample_reads1,
     config_sample_reads2,
-    config_truths
+    config_truths,
+    config_samples_has_coverages
 )
 
 if "classify" in config:
@@ -11,7 +12,7 @@ if "classify" in config:
 
     use rule * from classify
 
-if "coverages" in config["samples"]:
+if config_samples_has_coverages(config):
     module coverages:
         snakefile: "coverages/coverages.smk"
         config: config

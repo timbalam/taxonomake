@@ -1,0 +1,13 @@
+# samples.tsv has named columns 'names', 'reads1', 'reads2', 'truths', 'coverages'
+samples: "samples.tsv"
+
+# taxonomy.tsv has unnamed columns otu/taxonomy
+taxonomy: "taxonomy.tsv"
+
+# genomes.tsv has unnamed columns path_to_fna/otu
+genomes_list: "genomes.tsv"
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150

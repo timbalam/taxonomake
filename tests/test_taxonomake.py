@@ -39,6 +39,13 @@ def test_taxonomake(end_to_end):
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
     assert_equal_tsv(f"{path_to_data}/truth.tsv", f"{path_to_data}/tmp/truth.tsv")
 
+def test_taxonomake_samples(end_to_end):
+    cmd = f"taxonomake {path_to_data}/community_samples.yaml"
+    extern.run(cmd)
+    assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
+    assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
+    assert_equal_tsv(f"{path_to_data}/truth.tsv", f"{path_to_data}/tmp/truth.tsv")
+
 def test_taxonomake2(end_to_end):
     cmd = f"taxonomake {path_to_data}/community2.yaml"
     extern.run(cmd)

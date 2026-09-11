@@ -4,49 +4,53 @@ description: Schema for taxonomake community description configuration
 type: object
 properties: 
   samples:
-    description: Sample reads
-    type: object
-    properties:
-      names:
-        description: Sample names
-        type: array
-        items:
-          type: string
-        minItems: 1
-      
-      reads1:
-        description: Forward read (fastq.gz) files
-        type: array
-        items:
-          description: Gzipped Fastq file
-          type: string
-        minItems: 1
-      
-      reads2:
-        description: Reverse read (fastq.gz) files
-        type: array
-        items:
-          type: string
-        minItems: 1
+    oneOf:
+    - description: Sample reads
+      type: object
+      properties:
+        names:
+          description: Sample names
+          type: array
+          items:
+            type: string
+          minItems: 1
+        
+        reads1:
+          description: Forward read (fastq.gz) files
+          type: array
+          items:
+            description: Gzipped Fastq file
+            type: string
+          minItems: 1
+        
+        reads2:
+          description: Reverse read (fastq.gz) files
+          type: array
+          items:
+            type: string
+          minItems: 1
 
-      truths:
-        description: Truth community profile
-        type: array
-        items:
-          description: Tab-separated file with columns 'sample', 'coverage', 'taxonomy'
-          type: string
-        minItems: 1
+        truths:
+          description: Truth community profile
+          type: array
+          items:
+            description: Tab-separated file with columns 'sample', 'coverage', 'taxonomy'
+            type: string
+          minItems: 1
+        
+        coverages:
+          description: Genome-wise coverages per sample
+          type: array
+          items:
+            description: Tab-separated file (headerless) with columns 'genome id', 'coverage'
+            type: string
+          minItems: 1
+      required: ["names", "reads1", "reads2", "truths"]
       
-      coverages:
-        description: Genome-wise coverages per sample
-        type: array
-        items:
-          description: Tab-separated file (headerless) with columns 'genome id', 'coverage'
-          type: string
-        minItems: 1
-    required: ["names", "reads1", "reads2", "truths"]
-    
-    additionalProperties: false
+      additionalProperties: false
+
+    - description: Sample description file
+      type: string
     
   genomes_list:
     oneOf:
