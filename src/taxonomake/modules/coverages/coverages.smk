@@ -9,13 +9,14 @@ from taxonomake.modules.common import (
 
 rule coverages_to_truth:
     input:
-        coverages_files = list(config_coverages(config)),
+        coverages_files = config_coverages(config),
         genomes_lists = list(config_genomes_lists(config).values()),
         taxonomy = config_taxonomy(config)
     output:
         truths = sorted(set(config_truths(config)))
     localrule: True
     params:
-        sample_names = list(config_sample_names(config))
+        sample_names = config_sample_names(config),
+        truths_orig = config_truths(config)
     script:
         get_script("sum_coverages.py")

@@ -24,5 +24,5 @@ write_truths(
     sample_names = snakemake.params["sample_names"],
     genomes = pl.concat([read_genomes_list(f) for f in snakemake.input["genomes_lists"]]),
     taxonomy = read_taxonomy_file(snakemake.input["taxonomy"]),
-    output_truths = snakemake.output["truths"]
+    output_truths = snakemake.params["truths_orig"]
 )

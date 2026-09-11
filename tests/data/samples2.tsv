@@ -1,0 +1,3 @@
+names	reads1	reads2	truths	coverages
+"petite"	"tmp/petite_1.fq.gz"	"tmp/petite_2.fq.gz"	"tmp/truth_petite.tsv"	"coverages.tsv"
+"small"	"tmp/small_1.fq.gz"	"tmp/small_2.fq.gz"	"tmp/truth.tsv"	"coverages.tsv"

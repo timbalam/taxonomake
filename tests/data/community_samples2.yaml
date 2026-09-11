@@ -1,0 +1,13 @@
+# samples2.tsv has two samples with 'truth' column file paths not in sorted order
+samples: "samples2.tsv"
+
+# taxonomy.tsv has unnamed columns otu/taxonomy
+taxonomy: "taxonomy.tsv"
+
+# genomes.tsv has unnamed columns path_to_fna/otu
+genomes_list: "genomes.tsv"
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
