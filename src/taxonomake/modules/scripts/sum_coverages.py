@@ -17,7 +17,7 @@ def write_truths(*, coverages, sample_names, genomes, taxonomy, output_truths):
         .agg(pl.col('coverage').sum())
     )
     for (file,), data in truths.group_by(pl.col('output_truth')):
-        data.drop(pl.col('output_truth')).write_csv(file, separator = '\t')
+        data.select(pl.col('sample', 'coverage', 'taxonomy')).write_csv(file, separator = '\t')
 
 write_truths(
     coverages = [read_coverage_file(f) for f in snakemake.input["coverages_files"]],
