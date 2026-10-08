@@ -18,7 +18,6 @@ rule extract_taxonomy_gtdbtk_r207:
     script:
         get_script("extract_taxonomy.py")
 
-
 rule gtdbtk_r207_identify:
     input:
         batchfile = "batchfile.tsv",

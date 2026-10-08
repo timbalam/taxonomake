@@ -1,18 +1,28 @@
 from taxonomake.modules.common import (
     config_classify_data,
-    config_has_ncbi_genomes_list,
+    config_has_accession_genomes_list,
+    config_has_taxon_genomes_list,
     config_has_classify_data
 )
 
 download = []
-if config_has_ncbi_genomes_list(config):
-    module ncbi_genomes_list:
-        snakefile: "download/ncbi_genomes_list.smk"
+if config_has_accession_genomes_list(config):
+    module accession_genomes_list:
+        snakefile: "download/accession_genomes_list.smk"
         config: config
 
-    use rule * from ncbi_genomes_list
+    use rule * from accession_genomes_list
 
-    download.append("nbci_genomes_accessions-download.done")
+    download.append("accession_genomes-download.done")
+
+if config_has_taxon_genomes_list(config):
+    module taxon_genomes_list:
+        snakefile: "download/taxon_genomes_list.smk"
+        config: config
+
+    use rule * from taxon_genomes_list
+
+    download.append("taxon_genomes-download.done")
 
 if config_has_classify_data(config):
     module gtdbtk_data:

@@ -1,9 +1,9 @@
-# taxonomy.tsv has unnamed columns accession/taxonomy
-taxonomy: "taxonomy.tsv"
+# taxonomy.tsv has unnamed columns otu/taxonomy
+taxonomy: "taxonomy_taxids.tsv"
 
-# genomes_accessions.tsv has unnamed columns path_to_fna/accession
+# genomes.tsv has unnamed columns path_to_fna/otu
 genomes_list:
-  ncbi: "genomes_ncbi_tmp.tsv"
+  taxon: "genomes_taxids.tsv"
 
 samples:
   names: ["small"]
@@ -12,10 +12,9 @@ samples:
   # truth.tsv has named columns sample/taxonomy/coverage
   truths: ["tmp/truth.tsv"]
   # coverages has unnamed columns otu/coverage
-  coverages: ["coverages.tsv"]
+  coverages: ["coverages_taxids.tsv"]
 
 readsim:
   tool: "art"
   binary: "art_illumina"
   read_length: 150
-

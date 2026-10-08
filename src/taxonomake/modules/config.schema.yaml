@@ -60,8 +60,12 @@ properties:
       - description: Genome list files
         type: object
         properties:
-          ncbi:
+          accession:
             description: Tab-separated file (headerless) with columns 'genome fasta', 'accession id'
+            type: string
+
+          taxon:
+            description: Tab-separated file (headerless) with columns 'genome fasta', 'taxid'
             type: string
 
           user:
@@ -90,13 +94,13 @@ properties:
       
       release:
         description: GTDB version
-        enum: ["207"]
+        enum: ["207", "226"]
       
       data:
         description: Directory for downloaded GTDB-TK data
         type: string
       
-    required: ["directory", "release", "data"]
+    required: ["directory", "release"]
     
     additionalProperties: false
   

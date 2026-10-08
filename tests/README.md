@@ -1,8 +1,16 @@
-Run the following command to download the data for test 'test_community_gtdbtk_r207' in test_taxonomake.py.
+Run the following commands to download the data for tests in test_taxonomake_download.py.
 
-```sh
-taxonomake --download tests/data/community_gtdbtk_r207.yaml
-```
+- For 'test_taxonomake_gtdbtk_r207':
+
+  ```sh
+  taxonomake --download tests/data/community_gtdbtk_r207.yaml
+  ```
+
+- For 'test_taxonomake_gtdbtk_r226':
+
+  ```sh
+  taxonomake --download tests/data/community_gtdbtk_r226.yaml
+  ```
 
 Run expensive tests with profile
 

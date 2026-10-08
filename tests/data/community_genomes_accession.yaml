@@ -1,14 +1,9 @@
-classify:
-  tool: "gtdbtk"
-  release: "207"
-  directory: "tmp/genomes.gtdbtk_r207"
-  data: "tmp/gtdbtk_r207_v2_data"
+# taxonomy.tsv has unnamed columns accession/taxonomy
+taxonomy: "taxonomy.tsv"
 
-# taxonomy.tsv has unnamed columns otu/taxonomy
-taxonomy: "tmp/taxonomy.tsv"
-
-# genomes.tsv has unnamed columns path_to_fna/otu
-genomes_list: "genomes.tsv"
+# genomes_accessions.tsv has unnamed columns path_to_fna/accession
+genomes_list:
+  accession: "genomes_accessions_tmp.tsv"
 
 samples:
   names: ["small"]

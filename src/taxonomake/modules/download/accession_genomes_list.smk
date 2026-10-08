@@ -1,19 +1,19 @@
 import os.path
 from taxonomake.modules.common import (
-    config_ncbi_genomes_list,
+    config_genomes_accession_list,
     config_taxonomy,
     MANIFEST_PATH,
     get_script
 )
 
-rule download_ncbi_genome_accessions:
+rule download_accession_genomes:
     input:
         accessions="ncbi/genome_accessions.txt",
-        ncbi_names="ncbi/genome_ncbi_names.tsv"
+        ncbi_names="ncbi/accession_genome_ncbi_names.tsv"
     output:
-        done=touch("nbci_genomes_accessions-download.done")
+        done=touch("accession_genomes-download.done")
     log:
-        "logs/ncbi_genomes_accessions-download.log"
+        "logs/accession_genomes-download.log"
     localrule: True
     shell:
         "if test -s {input.accessions}; then " \
@@ -30,12 +30,12 @@ rule download_ncbi_genome_accessions:
         "parallel --col-sep '\\t' mv {{1}}/*.fna {{2}} :::: {input.ncbi_names}; " \
         "fi &> {log}"
 
-rule genome_accessions_to_download:
+rule accessions_to_download:
     input:
-        genomes_list=config_ncbi_genomes_list(config)
+        genomes_list=config_accession_genomes_list(config)
     output:
-        accessions="ncbi/genome_accessions.txt",
-        ncbi_names="ncbi/genome_ncbi_names.tsv"
+        ncbi_ids="ncbi/genome_accessions.txt",
+        ncbi_names="ncbi/accession_genome_ncbi_names.tsv"
     localrule: True
     script:
-        get_script("genomes_accessions_to_download.py")
+        get_script("genomes_to_download.py")

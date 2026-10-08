@@ -34,8 +34,8 @@ from a sample.
 truth: "truth.tsv"
 
 samples:
-  names: ['small'],
-  reads1: ["tmp/small_1.fq.gz"],
+  names: ['small']
+  reads1: ["tmp/small_1.fq.gz"]
   reads2: ["tmp/small_2.fq.gz"]
 ```
 
@@ -49,8 +49,7 @@ and corresponding genome taxonomies `taxonomy`.
 
 ```yaml
 # coverage.tsv has otu/coverage
-coverages:
-  small: "coverage.tsv"
+sample_coverages: ["coverage.tsv"]
 
 # taxonomy.tsv has otu/taxonomy
 taxonomy: "taxonomy.tsv"

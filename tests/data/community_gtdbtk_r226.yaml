@@ -1,21 +1,21 @@
 classify:
   tool: "gtdbtk"
-  release: "207"
-  directory: "tmp/genomes.gtdbtk_r207"
-  data: "tmp/gtdbtk_r207_v2_data"
+  release: "226"
+  directory: "tmp/genomes.gtdbtk_r226"
+  data: "tmp/gtdbtk_r226_data"
 
 # taxonomy.tsv has unnamed columns otu/taxonomy
-taxonomy: "tmp/taxonomy.tsv"
+taxonomy: "tmp/taxonomy_r226.tsv"
 
 # genomes.tsv has unnamed columns path_to_fna/otu
 genomes_list: "genomes.tsv"
 
 samples:
   names: ["small"]
-  reads1: ["tmp/small_1.fq.gz"]
-  reads2: ["tmp/small_2.fq.gz"]
+  reads1: ["reads/small_1.fq.gz"]
+  reads2: ["reads/small_2.fq.gz"]
   # truth.tsv has named columns sample/taxonomy/coverage
-  truths: ["tmp/truth.tsv"]
+  truths: ["truth_r226.tsv"]
   # coverages has unnamed columns otu/coverage
   coverages: ["coverages.tsv"]
 

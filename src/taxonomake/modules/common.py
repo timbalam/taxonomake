@@ -1,5 +1,5 @@
 import os.path
-import polars as pl
+import os
 import importlib.resources
 
 import taxonomake.modules.scripts
@@ -52,11 +52,17 @@ def config_coverages(config):
 def config_genomes_list(config):
     return config_genomes_lists(config)["user"]
 
-def config_ncbi_genomes_list(config):
-    return config_genomes_lists(config)["ncbi"]
+def config_accession_genomes_list(config):
+    return config_genomes_lists(config)["accession"]
 
-def config_has_ncbi_genomes_list(config):
-    return "genomes_list" in config and type(config["genomes_list"]) is not str and "ncbi" in config["genomes_list"]
+def config_has_accession_genomes_list(config):
+    return "genomes_list" in config and type(config["genomes_list"]) is not str and "accession" in config["genomes_list"]
+
+def config_taxon_genomes_list(config):
+    return config_genomes_lists(config)["taxon"]
+
+def config_has_taxon_genomes_list(config):
+    return "genomes_list" in config and type(config["genomes_list"]) is not str and "taxon" in config["genomes_list"]
 
 def config_genomes_lists(config):
     dict = (
@@ -76,10 +82,20 @@ def config_classify_dir(config, *paths):
     return _make_absolute(config_dir(config), config["classify"]["directory"], *paths)
 
 def config_classify_data(config):
-    return _make_absolute(config_dir(config), config["classify"]["data"])
+    return (
+        _make_absolute(config_dir(config), config["classify"]["data"])
+        if "data" in config["classify"]
+        else os.envrion["GTDBTK_DATA_PATH"]
+    )
+
+def config_classify_tool(config):
+    return config["classify"]["tool"]
+
+def config_classify_gtdbtk_release(config):
+    return config["classify"]["release"]
 
 def config_has_classify_data(config):
-    return "classify" in config
+    return "classify" in config and "data" in config["classify"]
 
 def read_samples(path):
     dir = os.path.dirname(path)
@@ -90,14 +106,4 @@ def read_samples(path):
             .map_elements(lambda path: _make_absolute(dir, path))
         )
         .to_dict(as_series = False)
-    )
-
-def xread_genomes_list(path):
-    dir = os.path.dirname(path)
-    return (
-        pl.read_csv(path, separator = '\t', has_header = False,
-                    new_columns = ["path", "otu"])
-        .with_columns(
-            pl.col("path").map_elements(lambda path: _make_absolute(dir, path))
-        )
     )

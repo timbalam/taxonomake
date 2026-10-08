@@ -13,4 +13,4 @@ df = (
 )
 
 df.select(pl.col("download"), pl.col("path")).write_csv(snakemake.output["ncbi_names"], separator = '\t', include_header = False)
-df.select(pl.col("otu")).write_csv(snakemake.output["accessions"], include_header = False)
+df.select(pl.col("otu")).write_csv(snakemake.output["ncbi_ids"], include_header = False)
