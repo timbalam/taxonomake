@@ -15,5 +15,5 @@ Run the following commands to download the data for tests in test_taxonomake_dow
 Run expensive tests with profile
 
 ```sh
-SNAKEMAKE_PROFILE=<profile> TEMPDIR="<tempdir>" pytest --run-expensive
+SNAKEMAKE_PROFILE=<profile> TMPDIR="<tempdir>" pytest --run-expensive
 ```
