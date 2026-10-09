@@ -101,7 +101,9 @@ classify:
   True taxonomic profile.
 
 `samples`
-- Object with three fields:
+- Object describing samples, which are collections of paired-end reads,
+  containing the following fields:
+
   `names`
   - List of names of samples.
 
@@ -110,24 +112,38 @@ classify:
 
   `reads2`
   - List of paths to reverse reads in fastq format.
+  
+  Optionally also containing:
 
-  Describes samples,
-  which are collections of paired-end reads.
-
-`coverages`
-- Object with field names corresponding to sample names
-  and values corresponding to paths to tsv with two (unnamed) columns
-  containing 1. OTU identifiers, and 2. coverages.
+  `coverages`
+  - List of paths to tsv files with two (unnamed) columns
+    containing 1. OTU identifiers, and 2. coverages.
 
 `taxonomy`
-- Path to a tsv with two (unnamed) columns 
+- Path to a tsv file with two (unnamed) columns 
   containing 1. OTU identifiers,
   and 2. semi-colon separated taxonomy strings.
 
 `genomes_list`
-- Path to a tsv with two (unnamed) columns
-  containing 1. paths to genome sequences in fasta format,
-  and 2. OTU identifiers.
+- Object describing lists of source genomes,
+  containing the following fields:
+  
+  `user`
+  - Path to a tsv file with two (unnamed) columns
+    containing 1. paths to genome sequences in fasta format,
+    and 2. OTU identifiers.
+  
+  `accession`
+  - Path to a tsv file with two (unnamed) columns
+    containing 1. paths to genome sequences in fasta format,
+    and 2. NCBI accession numbers.
+  
+  `taxon`
+  - Path to a tsv file with two (unnamed) columns
+    containing 1. paths to genome sequences in fasta format,
+    and 2. NBCI taxids or names.
+  
+  Alternatively, can be a path which is interpreted as an object with a `user` field with the path as value.
 
 `readsim`
 - Object describing configuration of tool to use for read simulation.
@@ -138,8 +154,11 @@ classify:
   `tool`
   - Name of tool: 'art'.
 
-  Describes configuration of read-simulation tool
-  for simulating samples. 
+  `read_length`
+  - Simulated read length.
+
+  `binary`
+  - Name of art executable on PATH or path to executable.
 
 `classify`
 - Object describing configuration of tool to use for genome classification.
@@ -151,7 +170,7 @@ classify:
   - Name of tool: 'gtdbtk'
 
   `release`
-  - GTDB release (currently supported: r207)
+  - GTDB release (currently supported: r207, r226)
   
   `directory`
   - directory for intermediate GTDB-TK outputs

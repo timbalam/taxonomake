@@ -1,7 +1,6 @@
 import os.path
 from taxonomake.modules.common import (
-    config_genomes_accession_list,
-    config_taxonomy,
+    config_accession_genomes_list,
     MANIFEST_PATH,
     get_script
 )

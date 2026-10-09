@@ -1,6 +1,7 @@
 import os.path
 import os
 import importlib.resources
+import polars as pl
 
 import taxonomake.modules.scripts
 import taxonomake.modules

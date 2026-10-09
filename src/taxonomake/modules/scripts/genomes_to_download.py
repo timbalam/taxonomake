@@ -8,7 +8,7 @@ df = (
         pl.col("path").map_elements(os.path.exists).not_()
     )
     .with_columns(
-        download = pl.lit("ncbi_dataset/data/") + pl.col("otu")
+        download = pl.lit("ncbi_dataset/data/") + pl.col("otu").cast(pl.String())
     )
 )
 
