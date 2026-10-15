@@ -11,8 +11,8 @@ taxonomake [configfile]
 
 # Configfile
 
-Taxonomake is configured by a configuration yaml. 
-The configuration yaml defines output, intermediate
+Taxonomake is configured by a configuration file in yaml format. 
+The configuration file defines output, intermediate
 and input files. If an existing file is specified
 it will be used as an input,
 otherwise Taxonomake will try to create
@@ -21,13 +21,12 @@ the files from other inputs where possible.
 Configurations for the main use cases are described next.
 Detailed descriptions of options can be found in 'Configfile options' below.
 
-## Final outputs
+## (Non) Use case: I have everything I need.
 
-The minimal configuration below
-demonstrates Taxonomake's final outputs -
-a ground truth profile
-and a corresponding set files of of paired reads
-from a sample.
+Taxonomake is finished when the final outputs 
+specified in the configuration are available -
+a **ground truth profile**
+and a sample described by a **name** and two files of **paired reads**.
 
 ```yaml
 # truth.tsv has columns sample/taxonomy/coverage
@@ -39,35 +38,31 @@ samples:
   reads2: ["tmp/small_2.fq.gz"]
 ```
 
-## Compute truth
+## Use case: (Missing `truth`) I don't know the true profile, but I know the coverage and taxonomy of genomes in the samples.
 
-With some additional configuration shown below
-Taxonomake can generate a missing truth profile `truth`
-from input files containing genome-wise coverages
-per sample `coverages`
-and corresponding genome taxonomies `taxonomy`.
+A missing truth profile `truth` can be generated
+if files containing **genome-wise coverages per sample** `coverages`
+and corresponding **genome taxonomies** `taxonomy`
+are specified in the configuration.
 
 ```yaml
-# coverage.tsv has otu/coverage
+# coverage.tsv has genome_id/coverage
 sample_coverages: ["coverage.tsv"]
 
-# taxonomy.tsv has otu/taxonomy
+# taxonomy.tsv has genome_id/taxonomy
 taxonomy: "taxonomy.tsv"
 ```
 
-## Simulate reads
+## Use case: (Missing `reads1`, `reads2`) I don't have sample reads, but I know the genome sequences and the coverages I want for the samples.
 
-Taxonomake can generate any missing reads files
-defined in `samples` by simulation
-using the genomes from the input `genomes_list` file
-so that the corresponding samples
-have the coverages defined by `coverages`.
-The configuration below demonstrates
-using the simulation tool 'art'
-(the binary name 'art_illumina' is required to be located on PATH).
+Missing paired reads files `reads1`, `reads2` defined in `samples` can be simulated
+if a file containing paths to **genome sequences** `genomes_list`,
+the file containing the **genome-wise coverages per sample** `coverages`,
+and a simulation tool (e.g. art_Illumina as the configuration below demonstrates) to use
+are specified in the configuration.
 
 ```yaml
-# genomes.tsv has path_to_fna/otu
+# genomes.tsv has path_to_fna/genome_id
 genomes_list: "genomes.tsv"
 
 readsim:
@@ -76,15 +71,13 @@ readsim:
   read_length: 150
 ```
 
-## Classify genomes
+## Use case: (Missing `taxonomy`) I don't know genome taxonomies, but I know the genome sequences.
 
-The above configuration relies on the genomes from  `genomes_list`
-having known taxonomy defined in the `taxonomy` tsv file.
-With additional configuration,
-Taxonomake can create a missing `taxonomy` tsv file
-by assigning taxonomy to the genomes, as demonstrated below
-using the Genome Tree Database Toolkit (GTDB-TK)
-release 207.
+A missing genome taxonomy `taxonomy` file
+can be generated from the file of **paths to genome sequences** `genomes_list`
+if a taxonomic classification tool
+(e.g. Genome Tree Database Toolkit release 207 as the below configuration demonstrates)
+is specified in the configuration.
 
 ```yaml
 classify:

@@ -17,7 +17,7 @@ rule download_taxon_genomes:
     shell:
         "if test -s {input.taxons}; then " \
         f"pixi run --manifest-path {MANIFEST_PATH} -e datasets " \
-        "datasets download genome taxon --reference --inputfile {input.taxons} && " \
+        "datasets download genome taxon --assembly-level complete --inputfile {input.taxons} && " \
         "{{ rm -r ncbi_dataset README.md md5sum.txt; unzip ncbi_dataset.zip; }} && " \
         "{{ " \
         f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
