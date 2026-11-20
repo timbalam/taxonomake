@@ -1,3 +1,4 @@
+## Test generating reads and truth after assigning taxonomy to known genomes with gtdbtk r226
 classify:
   tool: "gtdbtk"
   release: "226"

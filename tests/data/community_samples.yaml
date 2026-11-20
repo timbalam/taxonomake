@@ -1,3 +1,4 @@
+## Test generating reads and truth specified in external samples tsv
 # samples.tsv has named columns 'names', 'reads1', 'reads2', 'truths', 'coverages'
 samples: "samples.tsv"
 

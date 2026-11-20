@@ -1,3 +1,4 @@
+## Test generating reads and truth from genomes, taxonomy and coverages
 samples:
   names: 
     - "small"

@@ -1,9 +1,9 @@
-# taxonomy.tsv has unnamed columns accession/taxonomy
-taxonomy: "taxonomy.tsv"
+# taxonomy_virus_accessions.tsv has unnamed columns accession/taxonomy
+taxonomy: "taxonomy_virus_accessions.tsv"
 
 # genomes_accessions.tsv has unnamed columns path_to_fna/accession
 genomes_list:
-  accession: "genomes_accessions_tmp.tsv"
+  virus_accession: "genomes_virus_accessions_download.tsv"
 
 samples:
   names: ["small"]
@@ -11,8 +11,8 @@ samples:
   reads2: ["tmp/small_2.fq.gz"]
   # truth.tsv has named columns sample/taxonomy/coverage
   truths: ["tmp/truth.tsv"]
-  # coverages has unnamed columns otu/coverage
-  coverages: ["coverages.tsv"]
+  # coverages_virus_accessions.tsv has unnamed columns accession/coverage
+  coverages: ["coverages_virus_accessions.tsv"]
 
 readsim:
   tool: "art"

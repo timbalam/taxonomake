@@ -22,3 +22,7 @@ taxonomake = "taxonomake.taxonomake:main"
 
 [project.urls]
 Homepage = "https://github.com/wwood/singlem-benchmarking"
+
+[tool.pytest]
+testpaths = ["tests"]
+norecursedirs = ["tests/data"]

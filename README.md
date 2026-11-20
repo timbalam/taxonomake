@@ -46,8 +46,11 @@ and corresponding **genome taxonomies** `taxonomy`
 are specified in the configuration.
 
 ```yaml
-# coverage.tsv has genome_id/coverage
-sample_coverages: ["coverage.tsv"]
+samples:
+  # ...
+  # reads2: ["tmp/small_2.fq.gz"]
+  # coverage.tsv has genome_id/coverage
+  coverages: ["coverage.tsv"]
 
 # taxonomy.tsv has genome_id/taxonomy
 taxonomy: "taxonomy.tsv"

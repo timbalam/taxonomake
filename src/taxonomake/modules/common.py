@@ -65,6 +65,12 @@ def config_taxon_genomes_list(config):
 def config_has_taxon_genomes_list(config):
     return "genomes_list" in config and type(config["genomes_list"]) is not str and "taxon" in config["genomes_list"]
 
+def config_virus_accession_genomes_list(config):
+    return config_genomes_lists(config)["virus_accession"]
+
+def config_has_virus_accession_genomes_list(config):
+    return "genomes_list" in config and type(config["genomes_list"]) is not str and "virus_accession" in config["genomes_list"]
+
 def config_genomes_lists(config):
     dict = (
         {"user": config["genomes_list"]}

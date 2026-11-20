@@ -1,0 +1,22 @@
+## Test downloading genomes by accession ids
+# taxonomy.tsv has unnamed columns accession/taxonomy
+taxonomy: "taxonomy_accessions.tsv"
+
+# genomes_accessions_download.tsv has unnamed columns path_to_fna/accession
+genomes_list:
+  accession: "genomes_accessions_download.tsv"
+
+samples:
+  names: ["small"]
+  reads1: ["tmp/small_1.fq.gz"]
+  reads2: ["tmp/small_2.fq.gz"]
+  # truth.tsv has named columns sample/taxonomy/coverage
+  truths: ["tmp/truth.tsv"]
+  # coverages_accessions.tsv has unnamed columns otu/coverage
+  coverages: ["coverages_accessions.tsv"]
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
+

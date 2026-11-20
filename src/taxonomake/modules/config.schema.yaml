@@ -71,6 +71,10 @@ properties:
           user:
             description: Tab-separated file (headerless) with columns 'genome fasta', 'genome id'
             type: string
+          
+          virus_accession:
+            description: Tab-separated file (headerless) with columns 'genome fasta', 'accession id'
+            type: string
 
         additionalProperties: False
 

@@ -2,6 +2,7 @@ from taxonomake.modules.common import (
     config_classify_data,
     config_has_accession_genomes_list,
     config_has_taxon_genomes_list,
+    config_has_virus_accession_genomes_list,
     config_has_classify_data
 )
 
@@ -23,6 +24,15 @@ if config_has_taxon_genomes_list(config):
     use rule * from taxon_genomes_list
 
     download.append("taxon_genomes-download.done")
+
+if config_has_virus_accession_genomes_list(config):
+    module virus_accession_genomes_list:
+        snakefile: "download/virus_accession_genomes_list.smk"
+        config: config
+
+    use rule * from virus_accession_genomes_list
+
+    download.append("virus_accession_genomes-download.done")
 
 if config_has_classify_data(config):
     module gtdbtk_data:

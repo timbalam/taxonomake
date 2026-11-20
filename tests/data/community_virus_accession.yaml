@@ -1,0 +1,22 @@
+## Test generating reads and truth from known virus genomes etc. using accessions as ids
+# taxonomy_virus_accessions.tsv has unnamed columns accession/taxonomy
+taxonomy: "taxonomy_virus_accessions.tsv"
+
+# genomes_accessions.tsv has unnamed columns path_to_fna/accession
+genomes_list:
+  virus_accession: "genomes_virus_accessions.tsv"
+
+samples:
+  names: ["small"]
+  reads1: ["tmp/small_1.fq.gz"]
+  reads2: ["tmp/small_2.fq.gz"]
+  # truth.tsv has named columns sample/taxonomy/coverage
+  truths: ["tmp/truth.tsv"]
+  # coverages_virus_accessions.tsv has unnamed columns accession/coverage
+  coverages: ["coverages_virus_accessions.tsv"]
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
+

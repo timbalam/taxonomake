@@ -1,0 +1,22 @@
+## Test downloading genomes by taxid ids
+# taxonomy.tsv has unnamed columns taxid/taxonomy
+taxonomy: "taxonomy_taxids.tsv"
+
+# genomes_taxons_download.tsv has unnamed columns path_to_fna/taxid
+genomes_list:
+  taxon: "genomes_taxids_download.tsv"
+
+samples:
+  names: ["small"]
+  reads1: ["tmp/small_1.fq.gz"]
+  reads2: ["tmp/small_2.fq.gz"]
+  # truth.tsv has named columns sample/taxonomy/coverage
+  truths: ["tmp/truth.tsv"]
+  # coverages_taxids.tsv has unnamed columns taxid/coverage
+  coverages: ["coverages_taxids.tsv"]
+
+readsim:
+  tool: "art"
+  binary: "art_illumina"
+  read_length: 150
+

@@ -1,7 +1,8 @@
-# taxonomy.tsv has unnamed columns otu/taxonomy
+## Test generating reads and truth from known genomes etc. using accession ids
+# taxonomy_accessions.tsv has unnamed columns accession/taxonomy
 taxonomy: "taxonomy_accessions.tsv"
 
-# genomes.tsv has unnamed columns path_to_fna/otu
+# genomes_accessions.tsv has unnamed columns path_to_fna/accession
 genomes_list:
   accession: "genomes_accessions.tsv"
 
@@ -11,7 +12,7 @@ samples:
   reads2: ["tmp/small_2.fq.gz"]
   # truth.tsv has named columns sample/taxonomy/coverage
   truths: ["tmp/truth.tsv"]
-  # coverages has unnamed columns otu/coverage
+  # coverages_accessions has unnamed columns accession/coverage
   coverages: ["coverages_accessions.tsv"]
 
 readsim:

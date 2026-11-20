@@ -1,7 +1,8 @@
-# taxonomy.tsv has unnamed columns otu/taxonomy
+## Test generating reads and truth from known genomes etc. using taxids as ids
+# taxonomy_taxids.tsv has unnamed columns taxid/taxonomy
 taxonomy: "taxonomy_taxids.tsv"
 
-# genomes.tsv has unnamed columns path_to_fna/otu
+# genomes_taxids.tsv has unnamed columns path_to_fna/taxid
 genomes_list:
   taxon: "genomes_taxids.tsv"
 
@@ -11,7 +12,7 @@ samples:
   reads2: ["tmp/small_2.fq.gz"]
   # truth.tsv has named columns sample/taxonomy/coverage
   truths: ["tmp/truth.tsv"]
-  # coverages has unnamed columns otu/coverage
+  # coverages_taxids.tsv has unnamed columns taxid/coverage
   coverages: ["coverages_taxids.tsv"]
 
 readsim:
