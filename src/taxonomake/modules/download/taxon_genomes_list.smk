@@ -14,6 +14,9 @@ pathvars:
 use rule download_genomes from common_genomes_list as download_taxon_genomes with:
     params:
         download_opts = "genome taxon --assembly-level complete"
+    pathvars:
+        type = "taxon",
+        type_plural = "taxons"
 
 
 rule taxons_to_download:

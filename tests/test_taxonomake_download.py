@@ -55,7 +55,7 @@ def end_to_end_virus_accessions():
     cleanup()
 
 @pytest.mark.expensive
-def test_taxonomake_accession(end_to_end_accessions_genomes):
+def test_taxonomake_accession(end_to_end_accessions):
     """Test downloading genomes by accession ids"""
     cmd = f"taxonomake --download {path_to_data}/community_accession_download.yaml"
     extern.run(cmd)
@@ -63,7 +63,7 @@ def test_taxonomake_accession(end_to_end_accessions_genomes):
     assert os.path.isfile(f"{path_to_data}/tmp/genomes/GCA_002067065.1_genomic.fna")
 
 @pytest.mark.expensive
-def test_taxonomake_taxon(end_to_end_accessions_genomes):
+def test_taxonomake_taxon(end_to_end_accessions):
     """Test downloading genomes by taxid ids"""
     cmd = f"taxonomake --download {path_to_data}/community_taxon_download.yaml"
     extern.run(cmd)
@@ -71,7 +71,7 @@ def test_taxonomake_taxon(end_to_end_accessions_genomes):
     assert os.path.isfile(f"{path_to_data}/tmp/genomes/GCA_002067065.1_genomic.fna")
 
 @pytest.mark.expensive
-def test_taxonomake_viruses_accession(end_to_end_accessions_viruses):
+def test_taxonomake_viruses_accession(end_to_end_virus_accessions):
     """Test downloading virus genomes by accession ids"""
     cmd = f"taxonomake --download {path_to_data}/community_virus_accession_download.yaml"
     extern.run(cmd)

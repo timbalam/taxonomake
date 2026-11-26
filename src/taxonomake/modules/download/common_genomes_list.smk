@@ -1,5 +1,9 @@
 from taxonomake.modules.common import MANIFEST_PATH
 
+pathvars:
+    type = "accession",
+    type_plural = "accessions"
+
 rule download_genomes:
     input:
         ncbi_ids="ncbi/genome_<type_plural>.txt",
