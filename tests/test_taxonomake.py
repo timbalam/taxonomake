@@ -75,7 +75,7 @@ def test_taxonomake_samples2(end_to_end2):
 
 def test_taxonomake2_accession(end_to_end):
     """Test generating reads and truth from known genomes etc. using accession ids"""
-    cmd = f"taxonomake {path_to_data}/community_genomes_accession.yaml"
+    cmd = f"taxonomake {path_to_data}/community_accession.yaml"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
@@ -83,7 +83,7 @@ def test_taxonomake2_accession(end_to_end):
 
 def test_taxonomake2_taxon(end_to_end):
     """Test generating reads and truth from known genomes etc. using taxids as ids"""
-    cmd = f"taxonomake {path_to_data}/community_genomes_taxon.yaml"
+    cmd = f"taxonomake {path_to_data}/community_taxon.yaml"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
@@ -91,11 +91,11 @@ def test_taxonomake2_taxon(end_to_end):
 
 def test_taxonomake2_virus_accession(end_to_end):
     """Test generating reads and truth from known viral genomes etc. using accessions as ids"""
-    cmd = f"taxonomake {path_to_data}/community_viruses_accession.yaml"
+    cmd = f"taxonomake {path_to_data}/community_virus_accession.yaml"
     extern.run(cmd)
     assert os.path.isfile(f"{path_to_data}/tmp/small_1.fq.gz")
     assert os.path.isfile(f"{path_to_data}/tmp/small_2.fq.gz")
-    assert_equal_tsv(f"{path_to_data}/truth.tsv", f"{path_to_data}/tmp/truth.tsv")
+    assert_equal_tsv(f"{path_to_data}/truth_virus.tsv", f"{path_to_data}/tmp/truth.tsv")
 
 @pytest.fixture
 def end_to_end_gtdbtk():

@@ -26,16 +26,15 @@ rule download_virus_accession_genomes:
         "datasets download {params.download_opts} --filename ncbi_dataset_{{1}}.zip {{1}} '&&' "
         "'{{' rm -r ncbi_dataset_{{1}}/'{{'ncbi_dataset,README.md,md5sum.txt'}};' " 
         "unzip ncbi_dataset_{{1}}.zip -d ncbi_dataset_{{1}}';' '}}' "
-        " :::: {input.ncbi_ids} "
-        "fi &> {log}"
-        "{{ " \
-        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
+        " :::: {input.ncbi_ids} && "
+        "{{ " 
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " 
         "parallel --col-sep '\\t' dirname {{2}} :::: {input.ncbi_names} | "
-        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
-        "parallel mkdir -p;  " \
-        "}} && " \
-        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " \
-        "parallel --col-sep '\\t' mv {{1}}/*.fna {{2}} :::: {input.ncbi_names}; " \
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " 
+        "parallel mkdir -p;  " 
+        "}} && " 
+        f"pixi run --manifest-path {MANIFEST_PATH} -e parallel " 
+        "parallel --col-sep '\\t' mv {{1}}/*.fna {{2}} :::: {input.ncbi_names}; " 
         "fi &> {log}"
 
 rule virus_accessions_to_download:
@@ -46,4 +45,4 @@ rule virus_accessions_to_download:
         ncbi_names="ncbi/virus_accession_genome_ncbi_names.tsv"
     localrule: True
     script:
-        get_script("genomes_to_download.py")
+        get_script("virus_genomes_to_download.py")
