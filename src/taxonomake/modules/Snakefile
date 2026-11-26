@@ -2,12 +2,13 @@ from taxonomake.modules.common import (
     config_sample_reads1,
     config_sample_reads2,
     config_truths,
-    config_samples_has_coverages
+    config_samples_has_coverages,
+    config_has_classify_gtdbtk
 )
 
-if "classify" in config:
+if config_has_classify_gtdbtk(config):
     module classify:
-        snakefile: "classify/classify.smk"
+        snakefile: "classify/gtdbtk_classify.smk"
         config: config
 
     use rule * from classify

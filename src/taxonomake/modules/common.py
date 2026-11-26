@@ -104,6 +104,9 @@ def config_classify_gtdbtk_release(config):
 def config_has_classify_data(config):
     return "classify" in config and "data" in config["classify"]
 
+def config_has_classify_gtdbtk(config):
+    return "classify" in config and config["classify"]["tool"] == "gtdbtk"
+
 def read_samples(path):
     dir = os.path.dirname(path)
     return (
