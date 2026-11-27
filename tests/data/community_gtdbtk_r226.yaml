@@ -13,10 +13,10 @@ genomes_list: "genomes.tsv"
 
 samples:
   names: ["small"]
-  reads1: ["reads/small_1.fq.gz"]
-  reads2: ["reads/small_2.fq.gz"]
+  reads1: ["tmp/small_1.fq.gz"]
+  reads2: ["tmp/small_2.fq.gz"]
   # truth.tsv has named columns sample/taxonomy/coverage
-  truths: ["truth_r226.tsv"]
+  truths: ["tmp/truth.tsv"]
   # coverages has unnamed columns otu/coverage
   coverages: ["coverages.tsv"]
 
